@@ -69,6 +69,7 @@ class DeepBiaffine(object):
         batch_size = word_inputs.shape[1]
         seq_len = word_inputs.shape[0]
         mask = (np.broadcast_to(np.reshape(np.arange(seq_len), (seq_len, 1)), (seq_len, batch_size)) < lengths).astype(np.float32)
+        mask[0] = 0.
         num_tokens = int(np.sum(mask))
     
         if isTrain or arc_targets is not None:
