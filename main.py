@@ -110,7 +110,7 @@ save_dir = config.get("save", "save_dir")
 save_model_path = config.get("save", "save_model_path")
 save_config_path = config.get("save", "save_config_file")
 with open(save_config_path, 'wt') as f:
-    configs.write(f)
+    config.write(f)
 records_path = config.get("save", "records_path")
 
 # load paths for testing
