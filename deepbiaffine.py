@@ -189,7 +189,7 @@ class DeepBiaffine(object):
     #def save(self, save_path):
         #self.pc.save(save_path)
         
-    #def load(self, load_path):
-        #self.pc.populate(load_path)
+    def load(self, load_path):
+        self.pc.populate(load_path + ".data")
 
         

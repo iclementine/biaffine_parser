@@ -142,10 +142,9 @@ if not args.test:
                 dy.save(save_model_path, [biaffine_parser])
 
 # load best model to test on the test set
-model_test = dy.ParameterCollection()
-biaffine_parser_test = dy.load(load_model_path, model_test)[0]
+biaffine_parser.load(load_model_path)
 test_output = config.get("load", "test_output")
-LAS, UAS = test(biaffine_parser_test, test_it, f_deprel.vocab, files[2], test_output)
+LAS, UAS = test(biaffine_parser, test_it, f_deprel.vocab, files[2], test_output)
 logging.info("output file saved at {}".format(test_output))
 logging.info("Final Test: LAS: {} UAS: {}".format(LAS, UAS))
 
