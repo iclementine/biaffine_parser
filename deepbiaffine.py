@@ -173,6 +173,7 @@ class DeepBiaffine(object):
             rel_prob = rel_prob[np.arange(len(arc_pred)),arc_pred]
             rel_pred = rel_argmax(rel_prob, sent_len, self.vocab_deprel)
             outputs.append((arc_pred[1:sent_len], rel_pred[1:sent_len])) # w_0 is <roor>
+        assert(len(outputs) == batch_size)
     
         if arc_targets is not None:
             return arc_accuracy, rel_accuracy, overall_accuracy, outputs
