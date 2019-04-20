@@ -102,7 +102,7 @@ class DeepBiaffine(object):
             dep, head= dy.dropout_dim(dep, 1, self.dropout_mlp), dy.dropout_dim(head, 1, self.dropout_mlp) 
             # drop dim k means, it is possible that the whole dim k is set to zeros
             # for matrix with batch, ((R, C), B)
-            # drop dim 0 means drop some rows, drop dim 1 means drop some columns
+            # drop dim 0 means drop some cols, drop dim 1 means drop some rows
             # drop 2 means drop some batches, and it only supports for Tensor with rank <=3
     
         dep_arc, dep_rel = dep[:self.mlp_arc_size], dep[self.mlp_arc_size:]
@@ -171,7 +171,7 @@ class DeepBiaffine(object):
             sent_len = int(np.sum(msk))
             arc_pred = arc_argmax(arc_prob, sent_len, msk)
             rel_prob = rel_prob[np.arange(len(arc_pred)),arc_pred]
-            rel_pred = rel_argmax(rel_prob, sent_len, self.vocab_deprel)
+            rel_pred = rel_argmax(rel_prob, sent_len, self.vocab_deprel, "root" if "root" in self.vocab_deprel.stoi else "ROOT")
             outputs.append((arc_pred[1:sent_len], rel_pred[1:sent_len])) # w_0 is <roor>
         assert(len(outputs) == batch_size)
     

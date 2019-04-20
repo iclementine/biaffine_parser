@@ -172,13 +172,13 @@ def arc_argmax(parse_probs, length, tokens_to_keep, ensure_tree = True):
 		parse_preds = np.argmax(parse_probs, axis=1)
 		return parse_preds
 
-def rel_argmax(rel_probs, length, vocab_deprel, ensure_tree = True):
+def rel_argmax(rel_probs, length, vocab_deprel, real_root_label, ensure_tree = True):
 	"""
 	adopted from Timothy Dozat https://github.com/tdozat/Parser/blob/master/lib/models/nn.py
 	"""
 	if ensure_tree:
 		rel_probs[:,vocab_deprel.stoi["<pad>"]] = 0
-		root = vocab_deprel.stoi["ROOT"]
+		root = vocab_deprel.stoi[real_root_label]
 		tokens = np.arange(1, length)
 		rel_preds = np.argmax(rel_probs, axis=1)
 		roots = np.where(rel_preds[tokens] == root)[0]+1
